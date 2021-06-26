@@ -1,0 +1,195 @@
+body {
+    background-color: lightgray;
+    height: 100%;
+    width: 100%;
+    margin: 0 auto;
+}
+
+p {
+    font-family: 'Helvetica';
+    font-size: 36px;
+    color: gray;
+    text-align: center;
+    margin-top: 20px;
+}
+
+#signup-head {
+    background-color: white;
+    border-style: solid;
+    border-width: 2px;
+    border-radius: 5px;
+    border-color: lightgray;
+    height: 75px;
+    width: 500px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-right: -50%;
+    margin-top: -240px;
+    transform: translate(-50%, -50%);
+}
+
+#signup {
+    background-color: white;
+    border-style: solid;
+    border-width: 2px;
+    border-radius: 5px;
+    border-color: lightgray;
+    height: 400px;
+    width: 500px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, -50%);
+}
+
+input[type=text],input[type=password], select {
+    width: 100%;
+    padding: 6px 10px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+input[type=submit] {
+    width: 100%;
+    background-color: lightseagreen;
+    color: white;
+    padding: 7px 10px;
+    margin: 8px 0;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+input[type=submit]:hover {
+    background-color: lightskyblue;
+}
+
+#form {
+    width: 300px;
+    height: 400px;
+    margin-top: 20px;
+    margin-left: 100px;
+}
+
+#profilePic {
+    height: 20vh;
+    width: 12.5vw;
+    margin-left: 0.9vw;
+    position: absolute;
+}
+
+#sidebar {
+    height: 99vh;
+    width: 14vw;
+    background-color: white;
+    position: absolute;
+}
+
+#options {
+    width: 14vw;
+    font-family: 'Helvetica';
+    margin-top: 2vh;
+    text-align: center;
+}
+
+#options a {
+    background-color: white;
+    color: black;
+    display: block;
+    padding: 2vh;
+    text-decoration: none;
+}
+
+#options a:hover {
+    background-color: #ccc;
+}
+
+#options a.active {
+    background-color: lightskyblue;
+    color: white;
+}
+
+#header {
+    margin-left: 15vw;
+    width: 84vw;
+    height: 160px;
+    background-color: white;
+    position: absolute;
+}
+
+#main {
+    margin-top: 170px;
+    margin-left: 15vw;
+    height: calc(99vh - 170px);
+    width: 84vw;
+    background-color: white;
+    position: absolute;
+}
+
+h2 {
+    font-size: 1.25em;
+    color: black;
+    text-align: center;
+    font-family: "Montserrat";
+}
+
+#dropzone {
+    width: 50%;
+    margin: 0 auto;
+    background-color: lightblue;
+    height: 50vh;
+    width: 40vw;
+    border-radius: 3px;
+    margin-top: 15vh;
+}
+
+#dottedBorder {
+    margin: 0 auto;
+    background-color: lightblue;
+    border-color: darkcyan;
+    border-style: dashed;
+    border-width: 2px;
+    border-radius: 3px;
+    margin-top: 0.75vh;
+    margin-left: 0.35vw;
+    height: 48vh;
+    position: absolute;
+    width: 39vw;
+}
+
+#chooseFile {
+    height: 10vh;
+    width: 20vw;
+    margin-left: calc(50% - 10vw);
+    text-align: center;
+}
+
+#uploadImg {
+    height: 25vh;
+    width: 13.5vw;
+    margin-left: calc(50% - 6.75vw);
+    margin-top: 7.5vh;
+}
+
+#imageUpload {
+    height: 25vh;
+    width: 13.5vw;
+    margin-left: calc(50% - 6.75vw);
+    margin-top: 7.5vh;
+}
+
+#viewImages {
+    width: 40vw;
+    height: 5vh;
+    margin: 0 auto;
+    text-align: center;
+}
+
+table, th, td {
+    border: 1px solid black;
+}
