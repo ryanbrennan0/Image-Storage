@@ -1,4 +1,266 @@
 body {
+    margin: 0 auto;
+}
+
+h1 {
+    font-family: "Montserrat";
+    font-size: 32px;
+}
+
+h2 {
+    font-family: "Montserrat";
+    font-size: 28px;
+    text-align: center;
+}
+
+#header {
+    width: 100vw;
+    height: 15vh;
+    background-color: white;
+    display: flex;
+}
+
+#title {
+    margin-left: 2vw;
+    width: 30vw;
+    height: 15vh;
+    flex: 1 0 auto;
+    margin-top: 2vh;
+}
+
+#nav {
+    width: 55vw;
+    height: 15vh;
+    margin-top: 6vh;
+}
+
+#nav a{
+    padding: 2vh;
+    text-decoration: none;
+    font-size: 18px;
+    color: grey;
+    font-family: "Montserrat";
+}
+
+#slideshow {
+    width: 100vw;
+    margin: auto;
+}
+
+.mySlides {
+    display: none;
+}
+
+.prev, .next {
+    cursor: pointer;
+    position: absolute;
+    top: 50%;
+    width: auto;
+    margin-top: -22px;
+    padding: 16px;
+    color: white;
+    font-weight: bold;
+    font-size: 18px;
+    transition: 0.6s ease;
+    border-radius: 0 3px 3px 0;
+    user-select: none;
+}
+
+.next {
+    right: 0;
+    border-radius: 3px 0 0 3px;
+}
+
+.numbertext {
+    color: white;
+    font-size: 12px;
+    padding: 8px 12px;
+    position: absolute;
+    top: 0;
+}
+
+.fade {
+    -webkit-animation-name: fade;
+    -webkit-animation-duration: 1.5s;
+    animation-name: fade;
+    animation-duration: 1.5s;
+}
+
+@-webkit-keyframes fade {
+    from {opacity: .4}
+    to {opacity: 1}
+}
+
+@keyframes fade {
+    from {opacity: .4}
+    to {opacity: 1}
+}
+
+#main {
+    width: 100vw;
+    height: 50vw;
+}
+
+#images {
+    width: 80vw;
+    height: 40vh;
+    clear:both;
+    margin: 0 auto;
+}
+
+#img1 {
+    width: 20vw;
+    margin-top: 5vh;
+    float: left;
+    margin-left: 5vw;
+    text-align: center;
+}
+
+.imgCompress {
+    height: 30vh;
+    width: 20vw;
+}
+
+#img2 {
+    width: 20vw;
+    margin-left: 5vw;
+    margin-top: 5vh;
+    float: left;
+    text-align: center;
+}
+
+#img3 {
+    width: 20vw;
+    margin-left: 5vw;
+    margin-top: 5vh;
+    float: left;
+    text-align: center;
+}
+
+#footer {
+    width: 100vw;
+    height: 20vh;
+    background-color: cadetblue;
+}
+
+#pageName {
+    width: 100vw;
+    height: 15vh;
+    background-color: rgb(8, 47, 48);
+    text-align: center;
+    display: table-cell; 
+    vertical-align: middle;
+    color: white;
+}
+
+#container {
+    height: 70vh;
+    width: 60vw;
+    border-style: solid;
+    border-width: 1px;
+    border-color: black;
+    margin: 0 auto;
+    margin-top: 10vh;
+}
+
+#head {
+    width: 60vw;
+    height: 10vh;
+    background-color: rgb(8, 47, 48);
+    text-align: center;
+    color: white;
+    position: absolute;
+}
+
+#imageUpload {
+    width: 60vw;
+    height: 40vh;
+    margin-top: 15vh;
+    margin-left: 10vw;
+}
+
+input[type=text],input[type=password], select {
+    width: 40vw;
+    padding: 6px 10px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+input[type=submit] {
+    width: 40vw;
+    background-color: rgb(8, 47, 48);
+    color: white;
+    padding: 7px 10px;
+    margin: 8px 0;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+input[type=submit]:hover {
+    background-color: lightskyblue;
+}
+
+#viewImages {
+    width: 40vw;
+    height: 5vh;
+    margin: 0 auto;
+    text-align: center;
+    font-family: "Montserrat";
+}
+
+/* table {
+    border-collapse: collapse;
+} */
+
+tr:nth-child(even){background-color: #f2f2f2}
+
+th {
+    background-color: rgb(8, 47, 48);
+    color: white;
+}
+
+th, td {
+    text-align: center;
+    padding: 8px;
+}
+
+
+#signup-head {
+    background-color: white;
+    border-style: solid;
+    border-width: 2px;
+    border-radius: 5px;
+    border-color: lightgray;
+    height: 75px;
+    width: 500px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-right: -50%;
+    margin-top: -240px;
+    transform: translate(-50%, -50%);
+}
+
+#signup {
+    background-color: white;
+    border-style: solid;
+    border-width: 2px;
+    border-radius: 5px;
+    border-color: lightgray;
+    height: 400px;
+    width: 500px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, -50%);
+}
+
+/* body {
     background-color: lightgray;
     height: 100%;
     width: 100%;
@@ -192,4 +454,4 @@ h2 {
 
 table, th, td {
     border: 1px solid black;
-}
+} */

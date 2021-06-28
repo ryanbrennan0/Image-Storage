@@ -9,7 +9,7 @@ const path = require('path');
 const router = express.Router();
 const bodyParser = require('body-parser');
 const multer = require('multer');
-const {PythonShell} =require('python-shell');
+const {PythonShell} = require('python-shell');
 const uuid = require('uuid');
 const jwt = require('jsonwebtoken');
 var cookies = require("cookie-parser");
@@ -57,8 +57,8 @@ function getPage(filename, req, res) {
     });
 }
 
-// get index
-app.get('/', (req, res) => {
+// view.ejs
+app.get('/view', (req, res) => {
     const token = req.cookies.token; // this
     if (!token) {
 		return res.status(401).end()
@@ -87,11 +87,27 @@ app.get('/', (req, res) => {
         var command = "SELECT * FROM Images WHERE userId = ?;";
         return con.query(command, [user_id], (err, results) => {
             if (err) throw err;
-            res.render("index", {array : results});
+            res.render("view", {array : results});
         });
     }); 
 });
 
+// index.ejs
+app.get('/', (req, res) => {
+    const token = req.cookies.token; // this
+    if (!token) {
+		return res.status(401).end()
+	}
+    var payload;
+    try {
+        payload = jwt.verify(token, jwtKey);
+    } catch(e) {
+        return res.status(400).end();
+    }
+    res.render('index');
+});
+
+// upload.html
 app.get('/upload', (req, res) => {
     const token = req.cookies.token; // this
     if (!token) {
@@ -110,7 +126,7 @@ app.get('/upload', (req, res) => {
 var storage = multer.diskStorage({
     destination: function (req, file, cb) {
         // the file is saved to here
-        cb(null, 'uploads')
+        cb(null, 'public/uploads')
     },
     filename: function (req, file, cb) {
         // the filename field is added or altered here once the file is uploaded
@@ -131,7 +147,7 @@ app.post('/upload', upload.single('file'), (req, res) => {
     let options = {
         mode: 'text',
         pythonOptions: ['-u'], // get print results in real-time
-        scriptPath: 'uploads', // If you are having python_test.py script in same folder, then it's optional.
+        scriptPath: '', // If you are having python_test.py script in same folder, then it's optional.
         args: [location] // file to encode (argument)
     };
 
@@ -167,6 +183,13 @@ app.post('/upload', upload.single('file'), (req, res) => {
             con.query(command, [user_id, file, location, y, cb, cr], (err, result) => {
                 if (err) throw err;
                 console.log('success');
+
+                try {
+                    fs.unlinkSync("public/" + location); // THINK THIS IS RIGHT? - DELETE BLACK IMAGE AFTER WRITING PKL FILES
+                } catch(err) {
+                    console.error(err)
+                }
+
             });
         }); 
     });
@@ -229,12 +252,13 @@ app.post('/image', (req, res) => {
         var y = json[0].Y;
         var cb = json[0].Cb;
         var cr = json[0].Cr;
+        var n = json[0].location;
 
         // TODO: DISPLAY IMAGE IN BROWSER
         let options = {
             mode: 'text',
             pythonOptions: ['-u'], // get print results in real-time
-            scriptPath: 'uploads', // If you are having python_test.py script in same folder, then it's optional.
+            scriptPath: '', // If you are having python_test.py script in same folder, then it's optional.
             args: [y,cb,cr] // file to encode (argument)
         };
 
@@ -242,22 +266,69 @@ app.post('/image', (req, res) => {
         PythonShell.run('Decode.py', options, function (err, result){
             if (err) throw err;
             
-            // TODO: JUST NEED TO SEND IMAGE BACK TO USER, THEN DELETE LATER
-            //res.sendFile(img);
-            console.log('success')
+            // XMLHTTPREQUEST CANNOT DO NODEJS REDIRECTS
+            // var string = encodeURIComponent(n);
+            // res.redirect('/view?valid=' + string);
+            n = n.substring(0, n.length-3);
+            n += "jpg";
+            var redir = { image: n };
+            return res.json(redir);
         });
+    });
+});
+
+app.get('/viewImage', (req, res) => {
+    console.log("/viewImage")
+    var n = decodeURIComponent(req.query.valid);
+    var b = __dirname + "/public/" + n;
+    console.log(__dirname + "/public/" + n);
+
+    var c = "public/" + n;
+
+    fs.readFile(c, function(err, data) {
+        if (err) throw err; // Fail if the file can't be read.
+        res.writeHead(200, {'Content-Type': 'image/jpeg'});
+        res.end(data); // Send the file data to the browser.
+        try {
+            fs.unlinkSync(c); // DELETE AFTER ITS IN USERS BROWSER
+        } catch(err) {
+            console.error(err)
+        }
     });
 });
 
 // TODO: delete image
 app.post('/delete', (req, res) => {
-    console.log('deleted');
+    var filename = req.body.value;
+    var command = "SELECT * FROM Images WHERE filename = ?;";
+
+    con.query(command, [filename], (err, result) => {
+        var string = JSON.stringify(result);
+        var json =  JSON.parse(string);
+
+        var y = json[0].Y;
+        var cb = json[0].Cb;
+        var cr = json[0].Cr;
+
+        command = "DELETE FROM Images WHERE filename = ?;";
+        con.query(command, [filename], (err, result) => {
+            if (err) throw err;
+            console.log('deleted from database');
+
+            // delete pickle files
+            try {
+                fs.unlinkSync("public/" + y);
+                fs.unlinkSync("public/" + cb);
+                fs.unlinkSync("public/" + cr);
+            } catch(err) {
+                console.error(err)
+            }
+            console.log('success');
+        });
+    });
 });
 
 // listen on port 8080
 server.listen(8080, () => {
     console.log('listening on 8080');
 });
-
-
-// Images: ImageId (Pk) | UserId (Fk) | Filename (User Inputted) | Location | Y | Cb | Cr

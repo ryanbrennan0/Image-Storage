@@ -1,4 +1,63 @@
 <html>
+    <head>
+        <title>Upload Images</title>
+        <link rel = "stylesheet" href = "css/style.css">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
+        <script type="text/javascript" src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
+        <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    </head>
+
+    <body>
+        <div id = "header">
+
+            <div id = "title">
+                <h1>Remote Image Storage</h1>
+            </div>
+
+            <div id = "nav">
+                <a href="/">Home</a>
+                <a href="/profile">Profile</a>
+                <a href="/view" class="active">View Images</a>
+                <a href="/upload">Upload Images</a>
+                <a href="/settings">Settings</a>
+                <a href="/logout">Logout</a>
+            </div>
+
+        </div>
+
+        <div id = "pageName">
+            <div id = "name">
+                <h1>Upload an Image</h1>
+            </div>
+        </div>
+
+        <div id = "main">
+
+            <div id = "container">
+                <div id="head">
+                    <h2>Upload Image</h2>
+                </div>
+
+                <form id = "imageUpload" method="post" enctype="multipart/form-data" action="/upload">
+                    <label for="filename">File Name</label><br>
+                    <input type = "text" id = "filename" name = "filename" placeholder = "File name ..."><br>
+                    <input type="file" name="file"><br>
+                    <input type="submit" value="Submit">
+                </form>
+
+            </div>
+
+        </div>
+
+        <div id = "footer">
+
+        </div>
+
+
+    </body>
+</html>
+
+<!-- <html>
 
 <head>
     <title>Home</title>
@@ -33,7 +92,7 @@
 
     <div id="main">
 
-        <!--<div id="dropzone" ondrag="drag(event)" ondrop="drop(event)" ondragover="allowDrop(event)">
+        <div id="dropzone" ondrag="drag(event)" ondrop="drop(event)" ondragover="allowDrop(event)">
             <div id="dottedBorder">
                 <div id = "upload">
                     <img id = "uploadImg" src="images/UploadIcon-removebg-preview.png">
@@ -43,7 +102,7 @@
                 </div>
                 <div id="uploadBtnHolder"></div>
             </div>
-        </div>-->
+        </div>
 
         <form id = "imageUpload" method="post" enctype="multipart/form-data" action="/upload">
             <label for="filename">File Name</label><br>
@@ -118,4 +177,4 @@
 
 </body>
 
-</html>
+</html> -->

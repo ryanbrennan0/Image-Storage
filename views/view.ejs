@@ -1,0 +1,98 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>View Images</title>
+        <link rel = "stylesheet" href = "css/style.css">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
+        <script type="text/javascript" src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
+        <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    </head>
+
+    <body>
+        <div id = "header">
+
+            <div id = "title">
+                <h1>Remote Image Storage</h1>
+            </div>
+
+            <div id = "nav">
+                <a href="/">Home</a>
+                <a href="/profile">Profile</a>
+                <a href="/view" class="active">View Images</a>
+                <a href="/upload">Upload Images</a>
+                <a href="/settings">Settings</a>
+                <a href="/logout">Logout</a>
+            </div>
+
+        </div>
+
+        <div id = "pageName">
+            <div id = "name">
+                <h1>View Your Images</h1>
+            </div>
+        </div>
+
+        <div id = "main" style="height:60vh">
+            <div style="overflow-y:auto;">
+                <table id = "viewImages">
+                    <tr>
+                        <th>No.</th>
+                        <th>Filename</th>
+                        <th>Image</th>
+                        <th>Open</th>
+                        <th>Delete</th>
+                    </tr>
+    
+                    <% for(var i=0; i<array.length; i++) {%>
+                        <tr>
+                            <td><%= i %></td>
+                            <td class = "nr"><span><%= array[i].filename %></span></td>
+                            <td class = "data"><img src = <%= array[i].filename %>/></td>
+                            <td class = "data"><button class='open' id='open' type='button'>Open</button></td>
+                            <td class = "data"><button class = 'delete' id='delete' type='button' formaction='/delete' formmethod='post'>Delete</button></td>
+                        </tr>
+                    <%}%>
+    
+                </table>
+            </div>
+        </div>
+
+        <div id = "footer">
+
+        </div>
+
+        <script>
+            // open image
+            $(".open").click(function() {
+                var $row = $(this).closest("tr");    // Find the row
+                var $text = $row.find(".nr").text(); // Find the text
+    
+                axios.post('/image', {value: $text})
+                .then(function (response) {
+                    var img = response.data.image;
+                    console.log(img);
+                    var string = encodeURIComponent(img);
+                    window.location = "/viewImage?valid=" + string;
+                })
+                .catch(function(error) {
+                    window.location = "/"
+                })
+            });
+    
+            // delete image
+            $(".delete").click(function() {
+                var $row = $(this).closest("tr");    // Find the row
+                var $text = $row.find(".nr").text(); // Find the text
+    
+                axios.post('/delete', {value: $text})
+                .then(function (response) {
+                    window.location = '/'
+                })
+                .catch(function(error) {
+                    window.location = "/"
+                })
+            });
+        </script>  
+
+    </body>
+</html>

@@ -7,6 +7,8 @@ import sys
 import skimage.util
 import _pickle as cPickle
 
+sys.argv[1] = "public/" + sys.argv[1]
+
 image = cv2.imread(sys.argv[1])
 image = cv2.cvtColor(image, cv2.COLOR_BGR2YCR_CB)
 (y, cb, cr) = cv2.split(image)
@@ -23,11 +25,11 @@ y_dct = cv2.dct(y_new)
 cb_dct = cv2.dct(cb_new)
 cr_dct = cv2.dct(cr_new)
 
-n = sys.argv[1][8:]
+n = sys.argv[1][15:]
 
-name1 = "uploads/y_dct_" + n[:-4] + ".pkl"
-name2 = "uploads/cb_dct_" + n[:-4] + ".pkl"
-name3 = "uploads/cr_dct_" + n[:-4] + ".pkl"
+name1 = "public/uploads/y_dct_" + n[:-4] + ".pkl"
+name2 = "public/uploads/cb_dct_" + n[:-4] + ".pkl"
+name3 = "public/uploads/cr_dct_" + n[:-4] + ".pkl"
 
 cPickle.dump( y_dct, open( name1, "wb" ) )
 cPickle.dump( cb_dct, open( name2, "wb" ) )

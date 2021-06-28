@@ -7,9 +7,9 @@ import sys
 import skimage.util
 import _pickle as cPickle
 
-name1 = sys.argv[1]
-name2 = sys.argv[2]
-name3 = sys.argv[3]
+name1 = "public/" + sys.argv[1]
+name2 = "public/" + sys.argv[2]
+name3 = "public/" + sys.argv[3]
 
 y_dct = cPickle.load( open( name1, "rb" ) )
 cb_dct = cPickle.load( open( name2, "rb" ) )
@@ -24,6 +24,6 @@ res = np.float32(res)
 result = cv2.cvtColor(res, cv2.COLOR_YCR_CB2BGR)
 
 name = sys.argv[1][:-3]
-name = "uploads/" + name[14:] + ".jpg"
+name = "public/uploads/" + name[14:] + "jpg"
 
 cv2.imwrite(name, result*255)
